@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Account</title>
+  <link rel="stylesheet" href='add_emp/css'>
+  <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+  integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+  integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="http://localhost:3989/login/css">
+  
+  
+</head>
+
+<body style="background-color: lightsteelblue">
+  
+  <nav class="navbar navbar-dark bg-dark ">
+    <ul class="navbar-nav" style="display:inline-block">
+      <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+        <a class="nav-link" href="/myacc">MY ACCOUNT</a>
+      </li>
+      <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+        <a class="nav-link" href="/show_emp">Show Employees </a>
+      </li>
+      <li class="nav-item" style="display:inline-block;margin-right: 40px;font-size: 18px">
+        <a class="nav-link active" href="/add_emp">Add Employees</a>
+      </li>
+      <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+          <a class="nav-link" href="/salary">Salary Calculator </a>
+        </li>
+      <li class="nav-item" style="display:inline-block;margin-right: 40px;">
+        <a class="nav-link" href="/logout">LOGOUT</a>
+      </li>
+      
+    </ul><br>
+  </nav><br>
+  
+  
+  <div id="Acc">
+    <div class="card" style="border-color: blue">
+      <div class="card-header text-center">
+        <h2>Add New Employee<h2>
+        </div>
+        
+           <hr style="border-top: 1px solid grey"><b>Basic Information</b><br><br>
+          
+          <div class="form-group row">
+            <label class="control-label col-sm-2">Name :</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" v-model="name" placeholder="Enter Full Name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="control-label col-sm-2" for="pwd">Gender :</label>
+            <div class="col-sm-4">
+              <label class="radio-inline"><input type="radio" v-model="gender" value="Male" name="optradio"
+                checked>Male</label>
+                <label class="radio-inline"><input type="radio" v-model="gender" value="Female"
+                  name="optradio">Female</label>
+                </div>
+                
+                
+                <label class="control-label col-sm-2">Date of Birth :</label>
+                <div class="col-sm-4">
+                  <input type="date" v-model="dob" name="dob" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Father's Name :</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" v-model="fname" placeholder="Enter Father's Name">
+                </div>
+                
+                
+                <label class="control-label col-sm-2">Mobile Number :</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" v-model="fnum" placeholder="Enter Father's Mobile Number">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Mother's Name :</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" v-model="mname" placeholder="Enter Mother's Mobile Name">
+                </div>
+                <label class="control-label col-sm-2">Mobile Number :</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" v-model="mnum" placeholder="Enter Mother's Mobile Number">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Email :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="email" name="email" placeholder="Enter Email ID">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Phone Number :</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" v-model="pnum" name="pnum" placeholder="Enter Phone Number">
+                </div>
+                <label class="control-label col-sm-2">Alternate Number :</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" v-model="anum" name="anum" placeholder="Enter Alternate Number">
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Aadhaar Number :</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" v-model="aadhaar" placeholder="Enter Aadhaar Number">
+                </div>
+                <label class="control-label col-sm-2">PAN Number :</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" v-model="pan" placeholder="Enter PAN Number">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Address Line 1 :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="add1" placeholder="Enter Full Address">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Address Line 2 :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="add2" placeholder="Enter Full Address">
+                </div>
+              </div>
+              
+              
+               <hr style="border-top: 1px solid grey"><b>Work Information</b><br><br>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Date of Joining :</label>
+                <div class="col-sm-4">
+                  <input type="date" v-model="joindate" name="joindate" class="form-control">
+                </div>
+                <label class="control-label col-sm-2">Designation :</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" v-model="des" name="des" placeholder="Enter Designation">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Salary(per month):</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" v-model="salary" name="salary" placeholder="Enter Salary">
+                </div>
+              </div>
+               <hr style="border-top: 1px solid grey"><b>Bank Details</b><br><br>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Bank Name :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="bname" placeholder="Enter Bank Name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">IFSC Code :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="ifsc" placeholder="Enter IFSC Code">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-2">Account Number :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="accnum" placeholder="Enter Account Number">
+                </div>
+              </div>
+              <p class="Warn text-center" style="color: red "> <b>{{msg}}</b></p>
+              <button class="btn btn-primary " id="myBtn">Add Employee</button>
+            <div class="text-center"></div>
+            </div>
+            
+            
+            <div class="modal" id='myModal'>
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                Want to Add {{name}} as new Employee..
+                <div class="text-center"><button @click='submit();close()' class="btn btn-primary ">YES</button>
+                  <button class="btn btn-danger" @click='close()'>No</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+        
+      </div>
+      
+      
+    </div>
+    <br>
+  </body>
+  <script>
+    const acc = new Vue({
+      el: "#Acc",
+      data: {
+        name: '', fname: '', mname: '',
+        dob: '',
+        pnum: '', fnum: '', mnum: '', anum: '',
+        email: '',
+        aadhaar: '', pan: '',land:'',
+        add1: '',
+        add2: '',
+        joindate: '',
+        des: '',
+        salary: '',
+        gender: 'Male',
+        msg: '',
+        bname: '', ifsc: '', accnum: '',
+        
+      },
+      methods: {
+        close() {
+          modal.style.display = "none";
+        },
+        submit() {
+          this.dob=this.dob.slice(8,10)+"-"+this.dob.slice(5,7)+"-"+this.dob.slice(0,4)
+          this.joindate=this.joindate.slice(8,10)+"-"+this.joindate.slice(5,7)+"-"+this.joindate.slice(0,4)
+          var z=true
+          if(this.anum.length!=10 && this.anum.length!=0 ){
+            z=false
+          }
+          if(this.mnum.length!=10 && this.mnum.length!=0 ){
+            z=false
+          }
+          if(this.fnum.length!=10 && this.fnum.length!=0 ){
+            z=false
+          }
+          if(this.pnum.length!=10 && this.pnum.length!=0 ){
+            z=false
+          }
+          if (this.name != "" && z) {
+            $.post('/add_emp', {
+              name: this.name.toUpperCase(), fname: this.fname.toUpperCase(), mname: this.mname.toUpperCase(),
+              gender: this.gender.toUpperCase(),
+              dob: this.dob.toUpperCase(),
+              pnum: this.pnum.toUpperCase(), fnum: this.fnum.toUpperCase(), mnum: this.mnum.toUpperCase(), anum: this.anum.toUpperCase(),
+              add1: this.add1.toUpperCase(),
+              add2: this.add2.toUpperCase(),
+              email: this.email.toLowerCase(),
+              aadhaar: this.aadhaar.toUpperCase(), pan: this.pan.toUpperCase(),
+              joindate: this.joindate.toUpperCase(),
+              des: this.des.toUpperCase(),
+              land:this.land,
+              salary: this.salary.toUpperCase(),
+              bname: this.bname.toUpperCase(), ifsc: this.ifsc.toUpperCase(), accnum: this.accnum.toUpperCase(),
+            }, function (data) {
+              
+            })
+            this.msg="Employee ADDED to Database"
+            window.location.href="http://localhost:3989/show_emp"
+          } else {
+            if(z==false){
+                this.msg="Not a Valid Phone Number"
+            }else{
+              this.msg = "EMPTY FORM"
+            }
+            
+          }
+        }
+      }
+    })
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    myBtn.onclick = function () {
+      modal.style.display = "block";
+    }
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  
+  </html>

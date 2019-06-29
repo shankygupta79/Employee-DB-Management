@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://localhost:3989/login/css">
+    <link rel="stylesheet" href="http://localhost:3989/salary/css">
+    <title>Salary Calculator</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark ">
+        <ul class="navbar-nav" style="display:inline-block">
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/myacc">MY ACCOUNT</a>
+            </li>
+            
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/show_emp">Show Employees <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/add_emp">Add Employees</a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+                <a class="nav-link active" href="/salary">Salary Calculator </a>
+            </li>
+            <li class="nav-item"style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/logout">LOGOUT</a>
+            </li>
+            
+        </ul><br>
+    </nav><br>
+    <div id="Sal">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-8"><b>TYPE TO SEARCH EMPLOYEE</b></div>
+            <div class=col-sm-2 style="font-size: 20px"><b>{{Month[month-1]}} - {{year}}</b></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"></div>
+            <input type="text" id="border"  v-model="query" placeholder ="Enter Employee Name to Search" class="form-control col-sm-7" id="usr"></input></td>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2" style="font-size: 20px">Total Days : {{day}} days</div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <table id='tblData'class="col-sm-10" >
+                <tr >
+                    <th v-for="i in head.length" style="color: white" >
+                        {{head[i-1]}}
+                        <b @click="sort(i)"><span :class="clicks%2==0 ? 'arrowasc' : 'arrowdsc'" id="arrow"></span></b></th>
+                    </tr>
+                    <tr v-if="arr[i-1]['name'].toLowerCase().includes(query.toLowerCase())" v-for="i in length" >
+                        <td v-if="j!='advance' && j!='holidays' && j!='transfer' && j!='balance' && j!='final'" v-for="j in real">{{(arr[i-1])[j]}}</td>  
+                        <td v-else-if="j=='balance'" style="padding: 10px">{{Math.round((arr[i-1])['salary']-arr[i-1]['advance']-(arr[i-1]['salary']/day)*(arr[i-1]['holidays']))}}</td>
+                        <td v-else-if="j=='final'">{{Math.round(((arr[i-1])['transfer'])-((arr[i-1])['salary']-arr[i-1]['advance']-(arr[i-1]['salary']/day)*(arr[i-1]['holidays'])))}}</td>
+                        <td v-else style="padding: 10px" ><span v-show="!edit">{{(arr[i-1])[j]}}</span>
+                            <input v-show="edit"class="form-control" v-model="(arr[i-1])[j]"> </input>
+                        </td>  
+                        
+                    </tr>
+                </table>
+                
+            </div>
+            <br><br>
+            <div class="row">
+            <div class="col-sm-1"></div>
+            <button v-show="!edit" @click="edit=!edit"  class="btn btn-info">Edit DATA</button>
+            <button v-show="edit" @click="edit=!edit;submit()"  class="btn btn-warning">Save DATA</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        const sal=new Vue({
+            el:"#Sal",
+            data:{
+                query:'',
+                dele:false,
+                month:0,year:'2019',
+                Month:["January","February","March","April","May","June","July","August","September","October","November","December"]
+                ,days:[31,28,31,30,31,30,31,31,30,31,30,31],
+                field:'Name',clicks:0,length:'',
+                day:1,
+                edit:false,
+                head:[
+                'Name','Designation','Salary','Advance','Holidays','Balance',
+                ],
+                real:[
+                'name','des','salary','advance','holidays','balance',
+                ],
+                arr: [],
+                
+            },
+            created:function(){
+                this.load();
+            },
+            methods:{
+                load:function(){
+                    var app=this;
+                    axios.get('http://localhost:3989/add_emp/info')
+                    .then(function(Response){
+                        sal.arr=Response
+                        sal.length=Response.length
+                        if(sal.arr[0]['U_ID']==1){
+                            sal.head.push("Transfer")
+                            sal.head.push("Final Amount")
+                            sal.real.push("transfer")
+                            sal.real.push("final")
+                        }
+                        var date=new Date()
+                        sal.year=date.getFullYear()
+                        sal.month=date.getMonth()
+                        if(sal.month==0){
+                            sal.month=12
+                        }
+                        if(sal.year%4==0){
+                            sal.days[1]=29
+                        }
+                        sal.sort(1)
+                        sal.day=sal.days[sal.month-1]
+                        
+                        
+                        
+                    })
+                },
+                submit(){
+                    for(let i=1;i<=this.length;i++){
+                        this.arr[i-1]['balance']=Math.round((this.arr[i-1])['salary']-this.arr[i-1]['advance']-(this.arr[i-1]['salary']/this.day)*(this.arr[i-1]['holidays']))
+                       this.arr[i-1]['final']=Math.round((this.arr[i-1]['transfer'])-(this.arr[i-1])['balance'])
+                       $.post('/add_emp/sal',{
+                            ID:this.arr[i-1]['ID'],
+                            transfer:this.arr[i-1]['transfer'],
+                            advance:this.arr[i-1]['advance'],
+                            balance:this.arr[i-1]['balance'],
+                            salary:this.arr[i-1]['salary'],
+                            holidays:this.arr[i-1]['holidays']   
+                        },function(data){
+                        })
+                        
+                    }
+                  
+                }, sort(field){
+                    
+                    this.clicks++
+                    this.field=this.real[field-1]
+                    this.arr.sort(this.compare)
+                    if(this.clicks%2==0){
+                        this.arr.reverse(this.compare)
+                    }
+                },
+                compare (a, b) {
+                    if(this.field=='name' || this.field=='des'){
+                        var nameA = a[this.field]
+                        var nameB = b[this.field]
+                    }else{
+                        var nameA = parseInt(a[this.field])
+                        var nameB = parseInt(b[this.field])
+                    }   
+                    if (nameA < nameB) { return -1; }
+                    if (nameA > nameB) { return 1;}
+                    return 0;
+                }
+                
+                
+            }
+            
+        })
+        
+    </script>
+    
+    </html>

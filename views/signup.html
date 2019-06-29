@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign-UP</title>
+  
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="http://localhost:3989/login/css">
+</head>
+<body style="background-color:lightsteelblue">
+  <br>
+  <div id="Sign" class="row">
+      <div class=col-sm-3></div>
+    <div class="card col-sm-5" style="border-color:grey;padding: 20px;font-family:Verdana, Geneva, Tahoma, sans-serif">
+      <h2 style="align-self: center"><u>SIGN UP</u></h2><br>
+      
+
+        <div class="row">
+          <label class="control-label col-sm-4" ><b>Name </b></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" v-model="name" placeholder="Full Name">
+            <p style="color: red"><b>{{msg1}}<b><p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="control-label col-sm-4" >Company Name </label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="company" v-model="company" placeholder="Comapany Name">
+              <p style="color: red"><b>{{msg2}}<b><p>
+              </div></div>
+              <div class="row">
+                <label class="control-label col-sm-4" >Phone Number </label>
+                <div class="col-sm-8">
+                  <input type="number" class="form-control" v-model="phone" id="phone" placeholder="Phone Number">
+                </div></div>
+                <div class="row">
+                  <label class="control-label col-sm-4" >Email </label>
+                  <div class="col-sm-8">
+                    <input type="email" class="form-control" v-model="email" id="email" placeholder="Email">
+                    <p style="color: red"><b>{{msg4}}<b><p></p>
+                  </div></div>
+                  <div class="row">
+                    <label class="control-label col-sm-4" >Password </label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" name="password" v-model="password "placeholder="Password">
+                    </div></div>
+                    <div class="row">
+                      <label class="control-label col-sm-4" >Confirm Password </label>
+                      <div class="col-sm-8">
+                        <input type="password" class="form-control" name="cpassword" v-model="cpassword" placeholder="Password">
+                        <p style="color: red"><b>{{msg3}}<b><p>
+                        </div></div>
+                        <div class="row">
+                          <div class="col-sm-5"></div>
+                        <button @click="submit()" class="btn btn-primary">Sign UP</button>    
+                      </div>
+
+                    </div>
+                  </div>
+                  
+                </body>
+                <script>
+                  const sign=new Vue({
+                    el:"#Sign",
+                    data:{
+                      password:'',
+                      cpassword:'',
+                      phone:'',
+                      company:'',
+                      name:'',
+                      email:'',
+                      msg1:'',msg2:'',msg3:'',msg4:'',
+                      arr:[],
+                      
+                    },created:function(){
+                        this.load();
+                    },
+                    methods:{
+                        load:function(){
+                        axios.get('http://localhost:3989/signup/info')
+                        .then(function(Response){
+                          for(let i=0;i<Response.length;i++){
+                              sign.arr.push(Response[i].toLowerCase())  
+                              
+                          }
+                        })
+                     },
+                      submit(){
+                      
+                        if(this.name==""){
+                          this.msg1="Enter your name"
+                        }
+                        else if(this.company==""){
+                          this.msg2="Enter company name"
+                        }else if(this.password!=this.cpassword){
+                          this.msg3="Passwords Doesnt Match"
+                        }else if(this.arr.includes(this.email)){
+                          this.msg4="Email Already Exists"
+                        }else{
+                          $.post('/signup',{
+                              name:this.name.toUpperCase(),
+                              company:this.company.toUpperCase(),
+                              email:this.email.toLowerCase(),
+                              phone:this.phone.toUpperCase(),
+                              password:this.password,
+                          },function(data){
+                            window.location.href="http://localhost:3989/login";
+                          })
+                        }
+                      },
+                    } 
+                  })
+                </script>
+                </html>

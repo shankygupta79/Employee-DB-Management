@@ -1,0 +1,7 @@
+img{
+	border-radius:25px;
+}
+body{
+	min-hieght:100%;
+	background-image:linear-gradient(white,lightsteelblue,white);
+}
