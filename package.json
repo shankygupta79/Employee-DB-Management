@@ -1,23 +1,28 @@
 {
-  "name": "axiossample",
+  "name": "employee-db-management",
   "version": "0.1.0",
-  "description": "Testing",
-  "main": "ser.js",
-  "dependencies": {
-    "axios": "^0.19.0",
-    "express": "^4.17.1",
-    "express-session": "^1.16.2",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {},
+  "description": "employee management software",
+  "main": "server.js",
   "scripts": {
-    "start":"node ser.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shankygupta79/Employee-DB-Management.git"
   },
   "engines": {
-    "node":"9",
-    "npm":"5"
+    "node": "9",
+    "npm": "5"
   },
-  "author": "Shubham Gupta",
-  "license": "ISC"
+  "author": "Shubham Gupta <shankygupta79@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shankygupta79/Employee-DB-Management/issues"
+  },
+  "homepage": "https://github.com/shankygupta79/Employee-DB-Management#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.16.2"
+  }
 }
