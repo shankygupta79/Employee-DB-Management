@@ -14,7 +14,7 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="http://localhost:3989/login/css">
+    <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/login/css">
 </head>
 <body >
     <h1 class="text-center">EMPLOYEE DATABASE MANGEMENT SOFTWARE</h1><br><br>
@@ -26,13 +26,13 @@
             >
                             <div class="carousel-inner">
                               <div class="carousel-item active">
-                                <img  class="d-block w-100" src="http://localhost:3989/login/img3" alt="First slide">
+                                <img  class="d-block w-100" src="https://employee-db-management.herokuapp.com/login/img3" alt="First slide">
                               </div>
                               <div class="carousel-item">
-                                <img    class="d-block w-100" src="http://localhost:3989/login/img2" alt="Second slide">
+                                <img    class="d-block w-100" src="https://employee-db-management.herokuapp.com/img2" alt="Second slide">
                               </div>
                               <div class="carousel-item">
-                                <img  class="d-block w-100" src="http://localhost:3989/login/img1" alt="Third slide">
+                                <img  class="d-block w-100" src="https://employee-db-management.herokuapp.com/img1" alt="Third slide">
                               </div>
                             </div>
                           
@@ -83,7 +83,7 @@
             methods:{
                 load:function(){
                     var app=this;
-                    axios.get('http://localhost:3989/login/data')
+                    axios.get('https://employee-db-management.herokuapp.com/login/data')
                     .then(function(Response){
                         app.eshow=Response[0]
                         app.pshow=Response[1]  
