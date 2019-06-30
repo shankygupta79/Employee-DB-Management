@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize')
-const db = new Sequelize('empman', 'xyz', 'tony', {
-    host:'localhost',
+const db = new Sequelize('eFx6DJVPM2', 'eFx6DJVPM2', 'XDIawT0voC', {
+    host:'remotemysql.com',
     dialect: 'mysql',
     port:3306,
-    omitNull: true,
+  operatorsAliases: false,
   pool: {
     max: 5,
     min: 0,
