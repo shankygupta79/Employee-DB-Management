@@ -53,7 +53,7 @@
                     <div v-if="pshow">WRONG PASSWORD</div><br>
                     <div class="row">
                         <div class="col-sm-4"></div>
-                        <button type="submit" class="btn btn-success col-sm-4">Submit</button>  
+                        <button type="submit" @click="sub()" class="btn btn-success col-sm-4">{{submit}}</button>  
                     </div>
                 </form>
                 <hr style="border-top: 1px solid grey">
@@ -76,6 +76,7 @@
                 password:'',
                 eshow:false,
                 pshow:false,
+                submit:'submit',
             },
             created:function(){
                 this.load();
@@ -88,7 +89,9 @@
                         app.eshow=Response[0]
                         app.pshow=Response[1]  
                     })
-                },
+                },sub(){
+                    this.submit="Logging In..."
+                }
             } 
         })
     </script>

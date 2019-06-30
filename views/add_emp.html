@@ -90,7 +90,7 @@
               <div class="form-group row">
                 <label class="control-label col-sm-2">Mother's Name :</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" v-model="mname" placeholder="Enter Mother's Mobile Name">
+                  <input type="text" class="form-control" v-model="mname" placeholder="Enter Mother's Name">
                 </div>
                 <label class="control-label col-sm-2">Mobile Number :</label>
                 <div class="col-sm-4">
@@ -223,6 +223,7 @@
           modal.style.display = "none";
         },
         submit() {
+          this.aadhaar=this.aadhaar.slice(0,4)+"-"+this.aadhaar.slice(4,8)+"-"+this.aadhaar.slice(8,12)+"-"+this.aadhaar.slice(12,16) 
           this.dob=this.dob.slice(8,10)+"-"+this.dob.slice(5,7)+"-"+this.dob.slice(0,4)
           this.joindate=this.joindate.slice(8,10)+"-"+this.joindate.slice(5,7)+"-"+this.joindate.slice(0,4)
           var z=true
