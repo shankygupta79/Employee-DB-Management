@@ -8,7 +8,7 @@ route.get('/', (req, res) => {
 
 })
 route.get('/img1', (req, res) => {
-  res.sendFile(path.join(__dirname,'../views/img.jpeg'))
+  res.sendFile(path.join(__dirname,'../views/img1.jpeg'))
 })
 route.get('/img2', (req, res) => {
   res.sendFile(path.join(__dirname,'../views/img2.jpeg'))
