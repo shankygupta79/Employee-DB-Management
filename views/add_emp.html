@@ -52,7 +52,7 @@
         <h2>Add New Employee<h2>
         </div>
         
-           <hr style="border-top: 1px solid grey"><b>Basic Information</b><br><br>
+           <hr style="border-top: 1px solid grey;"><b style="color:blue">Basic Information</b><br><br>
           
           <div class="form-group row">
             <label class="control-label col-sm-2">Name :</label>
@@ -63,10 +63,10 @@
           <div class="form-group row">
             <label class="control-label col-sm-2" for="pwd">Gender :</label>
             <div class="col-sm-4">
-              <label class="radio-inline"><input type="radio" v-model="gender" value="Male" name="optradio"
-                checked>Male</label>
-                <label class="radio-inline"><input type="radio" v-model="gender" value="Female"
-                  name="optradio">Female</label>
+              <span class="radio-inline"><input type="radio" v-model="gender" value="Male" name="optradio"
+                checked>Male</span>
+                <span class="radio-inline"><input type="radio" v-model="gender" value="Female"
+                  name="optradio">Female</span>
                 </div>
                 
                 
@@ -90,7 +90,7 @@
               <div class="form-group row">
                 <label class="control-label col-sm-2">Mother's Name :</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" v-model="mname" placeholder="Enter Mother's Name">
+                  <input type="text" class="form-control" v-model="mname" placeholder="Enter Mother's Mobile Name">
                 </div>
                 <label class="control-label col-sm-2">Mobile Number :</label>
                 <div class="col-sm-4">
@@ -98,12 +98,17 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label col-sm-2">Email :</label>
-                <div class="col-sm-10">
+                <label class="control-label col-sm-2" >Email :</label>
+                <div class="col-sm-4">
                   <input type="text" class="form-control" v-model="email" name="email" placeholder="Enter Email ID">
                 </div>
-              </div>
-              <div class="form-group row">
+              
+                  <label class="control-label col-sm-2">Landline :</label>
+                  <div class="col-sm-4">
+                    <input type="number" class="form-control" v-model="land" name="email" placeholder="Enter Land Line number without 011">
+                  </div>
+                </div>
+                <div class="form-group row">
                 <label class="control-label col-sm-2">Phone Number :</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control" v-model="pnum" name="pnum" placeholder="Enter Phone Number">
@@ -138,7 +143,7 @@
               </div>
               
               
-               <hr style="border-top: 1px solid grey"><b>Work Information</b><br><br>
+               <hr style="border-top: 1px solid grey;"><b style="color:blue">Work Information</b><br><br>
               <div class="form-group row">
                 <label class="control-label col-sm-2">Date of Joining :</label>
                 <div class="col-sm-4">
@@ -155,7 +160,7 @@
                   <input type="number" class="form-control" v-model="salary" name="salary" placeholder="Enter Salary">
                 </div>
               </div>
-               <hr style="border-top: 1px solid grey"><b>Bank Details</b><br><br>
+               <hr style="border-top: 1px solid grey;"><b style="color:blue">Bank Details</b><br><br>
               <div class="form-group row">
                 <label class="control-label col-sm-2">Bank Name :</label>
                 <div class="col-sm-10">
@@ -239,6 +244,7 @@
           if(this.pnum.length!=10 && this.pnum.length!=0 ){
             z=false
           }
+          this.land="011 - "+this.land
           if (this.name != "" && z) {
             $.post('/add_emp', {
               name: this.name.toUpperCase(), fname: this.fname.toUpperCase(), mname: this.mname.toUpperCase(),

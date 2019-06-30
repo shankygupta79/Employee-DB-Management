@@ -5,6 +5,9 @@
   border: 5px solid #888;
   width: 80%; 
 }
+label{
+	font-weight: bold;
+}
 .modal {
   display: none;
   position: fixed; 

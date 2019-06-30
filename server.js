@@ -29,4 +29,4 @@ app.use('/salary',require('./routes/salary'))
 app.listen(SERVER_PORT, function () {
     console.log("Server started on http://localhost:3989/login");
 });
-//taskkill/f/im node.exe
+//taskkill/f /im node.exe

@@ -33,6 +33,7 @@ const Emp = db.define('emps', {
     add2: Sequelize.STRING,
     joindate:Sequelize.STRING,
     des: Sequelize.STRING,
+    land:Sequelize.STRING,
     salary: Sequelize.STRING,
     bname: Sequelize.STRING,ifsc: Sequelize.STRING,accnum: Sequelize.STRING,  
     advance: Sequelize.STRING,
