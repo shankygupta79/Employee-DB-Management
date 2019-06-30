@@ -23,6 +23,9 @@
   "homepage": "https://github.com/shankygupta79/Employee-DB-Management#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-session": "^1.16.2"
+    "express-session": "^1.16.2",
+    "mysql2": "^1.6.5",
+    "path": "^0.12.7",
+    "sequelize": "^5.9.0"
   }
 }
