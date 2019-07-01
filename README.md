@@ -10,4 +10,4 @@ Currenty used by Sanjeev Store Company!
 
 Sample Login
 ID : sample@gmail.com
-Pas : sample
+Password : sample
