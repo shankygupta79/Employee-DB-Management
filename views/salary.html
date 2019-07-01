@@ -61,7 +61,7 @@
                     <tr v-if="arr[i-1]['name'].toLowerCase().includes(query.toLowerCase())" v-for="i in length" >
                         <td v-if="j!='advance' && j!='holidays' && j!='transfer' && j!='balance' && j!='final'" v-for="j in real">{{(arr[i-1])[j]}}</td>  
                         <td v-else-if="j=='balance'" style="padding: 10px">{{Math.round((arr[i-1])['salary']-arr[i-1]['advance']-(arr[i-1]['salary']/day)*(arr[i-1]['holidays']))}}</td>
-                        <td v-else-if="j=='final'">{{Math.round(((arr[i-1])['transfer'])-((arr[i-1])['salary']-arr[i-1]['advance']-(arr[i-1]['salary']/day)*(arr[i-1]['holidays'])))}}</td>
+                        <td v-else-if="j=='final'">{{Math.round((((arr[i-1])['salary']-arr[i-1]['advance']-(arr[i-1]['salary']/day)*(arr[i-1]['holidays']))-(arr[i-1])['transfer']))}}</td>
                         <td v-else style="padding: 10px" ><span v-show="!edit">{{(arr[i-1])[j]}}</span>
                             <input v-show="edit"class="form-control" v-model="(arr[i-1])[j]"> </input>
                         </td>  
