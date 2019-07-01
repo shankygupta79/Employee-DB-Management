@@ -7,3 +7,7 @@ calculate the salaray for the employees at the starting of new month.
 It uses JavaScript , HTML , and Vue framework !
 
 Currenty used by Sanjeev Store Company!
+
+Sample Login
+ID : sample@gmail.com
+Pas : sample
