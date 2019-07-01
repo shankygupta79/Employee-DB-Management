@@ -73,11 +73,23 @@
                     </div>
 
                     
-                    <div class="row" v-if="i==1 || i==14 || i==15 || i==18  ||i==21">
+                    <div class="row" v-if="i==1 || i==18  ||i==21">
                             <div class="col-sm-3" >
                                     <b>{{names[i-1]}}</b>
                             </div>
                             <div class="col-sm-3" v-show="!edit" >
+                                    {{arr[head[i-1]]}}
+                            </div>
+                            <div class="col-sm-3" v-show="edit" >
+                                <input v-model="arr[head[i-1]]" class="form-control" placeholder="Enter new value"></input>     
+                            </div>
+                            
+                        </div>
+                        <div class="row" v-if="i==14 || i==15 ">
+                            <div class="col-sm-3" >
+                                    <b>{{names[i-1]}}</b>
+                            </div>
+                            <div class="col-sm-9" v-show="!edit" >
                                     {{arr[head[i-1]]}}
                             </div>
                             <div class="col-sm-3" v-show="edit" >
