@@ -134,7 +134,7 @@
                 submit(){
                     for(let i=1;i<=this.length;i++){
                         this.arr[i-1]['balance']=Math.round((this.arr[i-1])['salary']-this.arr[i-1]['advance']-(this.arr[i-1]['salary']/this.day)*(this.arr[i-1]['holidays']))
-                       this.arr[i-1]['final']=Math.round((this.arr[i-1]['transfer'])-(this.arr[i-1])['balance'])
+                       this.arr[i-1]['final']=Math.round((this.arr[i-1])['balance']-(this.arr[i-1]['transfer']))
                        $.post('/add_emp/sal',{
                             ID:this.arr[i-1]['ID'],
                             transfer:this.arr[i-1]['transfer'],

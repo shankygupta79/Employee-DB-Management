@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="row" id="Print">
+        
+        <div class="col-sm-2 " v-for="i in 5" style="margin: 10px" >
+            <table>
+                <tr>
+                       <th style="border:2px solid black;padding:8px">Name</th>
+                       <th style="border:2px solid black;padding:8px">Shubham</th>
+                </tr>
+                <tr v-for="i in head">
+                    <td style="border:2px solid black;padding:4px"> {{i}}&nbsp&nbsp</td>
+                    <td style="border:2px solid black;padding:4px"> hey</td>
+                </tr>
+            </table>
+        
+        </div>
+        
+    
+    </div>
+    <button class="btn btn-info">Print</button>
+</body>
+<script>
+        const print=new Vue({
+            el:"#Print",
+            data:{
+                head:["Salary","Advance","Holidays","Total","Transfer","Final"],
+            }
+        })
+    </script>
+</html>
