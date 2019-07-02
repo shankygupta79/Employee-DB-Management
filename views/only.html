@@ -10,8 +10,8 @@
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/css">
-    <link rel="stylesheet" href='http://localhost:3989/add_emp/css'>
+    <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/login/css">
+    <link rel="stylesheet" href='https://employee-db-management.herokuapp.com/add_emp/css'>
     <title>Document</title>
 </head>
 <body>
@@ -144,7 +144,7 @@
         },
         methods:{
             load:function(){
-                axios.get('http://localhost:3989/show_emp/info')
+                axios.get('https://employee-db-management.herokuapp.com/show_emp/info')
                 .then(function(Response){
                     only.arr=Response
                 })
@@ -174,7 +174,7 @@
                     ID:this.arr['ID']
                 },function(data){
                 })
-                window.location.href="http://localhost:3989/show_emp"
+                window.location.href="https://employee-db-management.herokuapp.com/show_emp"
                 
             }
         } 
