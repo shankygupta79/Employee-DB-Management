@@ -14,7 +14,7 @@ route.get('/info',(req,res)=>{
     
   }else{
     console.log("redirecting")
-    return res.redirect("https://employee-db-management.herokuapp.com/login")
+    return res.redirect("http://localhost:3989/login")
   }
   
 })

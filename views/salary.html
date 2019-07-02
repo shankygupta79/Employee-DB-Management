@@ -10,8 +10,8 @@
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/login/css">
-    <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/salary/css">
+    <link rel="stylesheet" href="http://localhost:3989/login/css">
+    <link rel="stylesheet" href="http://localhost:3989/salary/css">
     <title>Salary Calculator</title>
 </head>
 <body>
@@ -32,6 +32,9 @@
             </li>
             <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
                 <a class="nav-link active" href="/salary">Salary Calculator </a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+                <a class="nav-link" href="/data">Salary Analysis </a>
             </li>
             <li class="nav-item"style="display:inline-block;margin-right: 40px">
                 <a class="nav-link" href="/logout">LOGOUT</a>
@@ -105,7 +108,7 @@
             methods:{
                 load:function(){
                     var app=this;
-                    axios.get('https://employee-db-management.herokuapp.com/add_emp/info')
+                    axios.get('http://localhost:3989/add_emp/info')
                     .then(function(Response){
                         sal.arr=Response
                         sal.length=Response.length
@@ -137,11 +140,17 @@
                        this.arr[i-1]['final']=Math.round((this.arr[i-1])['balance']-(this.arr[i-1]['transfer']))
                        $.post('/add_emp/sal',{
                             ID:this.arr[i-1]['ID'],
+                            U_ID:this.arr[i-1]['U_ID'],
+                            name:this.arr[i-1]['name'],
+                            des:this.arr[i-1]['des'],
                             transfer:this.arr[i-1]['transfer'],
                             advance:this.arr[i-1]['advance'],
                             balance:this.arr[i-1]['balance'],
+                            final:this.arr[i-1]['final'],
                             salary:this.arr[i-1]['salary'],
-                            holidays:this.arr[i-1]['holidays']   
+                            holidays:this.arr[i-1]['holidays'],
+                            month:this.month,year:this.year,
+                            date:this.arr[i-1]['ID']+":"+(this.month)+"-"+this.year,
                         },function(data){
                         })
                         

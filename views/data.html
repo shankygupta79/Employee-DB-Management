@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://localhost:3989/login/css">
+    <link rel="stylesheet" href="http://localhost:3989/salary/css">
+    <title>Salary Calculator</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark ">
+        <ul class="navbar-nav" style="display:inline-block">
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/myacc">MY ACCOUNT</a>
+            </li>
+            
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/show_emp">Show Employees <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/add_emp">Add Employees</a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+                <a class="nav-link" href="/salary">Salary Calculator </a>
+            </li>
+            <li class="nav-item " style="display:inline-block;margin-right: 40px;font-size: 18px">
+                <a class="nav-link active" href="/data">Salary Analysis </a>
+            </li>
+            <li class="nav-item"style="display:inline-block;margin-right: 40px">
+                <a class="nav-link" href="/logout">LOGOUT</a>
+            </li>
+            
+        </ul><br>
+    </nav><br>
+    <h2 style="text-align: center"> View Old Data</h2><br>
+    <div id="Sal">
+        <div class="row">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-2" style="font-size: 20px"><b>Select Month :</b></div>
+            <select class="form-control col-sm-2" v-model="month" id="sel1">
+                <option v-for="z in Month">{{z}}</option></select>
+            <div class="col-sm-2"> </div>  
+            <div class="col-sm-2" style="font-size: 20px"><b>Select Year :</b></div> 
+            <input class="form-control col-sm-2" v-model="year" id="sel1">
+            </input>
+            <div class="col-sm-1"></div> 
+            
+        </div>
+        <br><br>
+        <div class="row">
+                 
+            <div class="col-sm-1"></div>
+            <div class="col-sm-8"><b>TYPE TO SEARCH EMPLOYEE</b></div>
+            <div class=col-sm-2 style="font-size: 20px"><b>{{month}} - {{year}}</b></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"></div>
+            <input type="text" id="border"  v-model="query" placeholder ="Enter Employee Name to Search" class="form-control col-sm-7" id="usr"></input></td>
+            <div class="col-sm-4"> </div>
+                    
+                    
+                </div><br>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <table id='tblData'class="col-sm-10" >
+                        <tr >
+                            <th v-for="i in head.length" style="color: white" >
+                                {{head[i-1]}}
+                                <b @click="sort(i)"><span :class="clicks%2==0 ? 'arrowasc' : 'arrowdsc'" id="arrow"></span></b></th>
+                            </tr>
+                            <tr v-if="arr[i-1]['name'].toLowerCase().includes(query.toLowerCase())  && arr[i-1]['month']==Month.indexOf(month)+1 && arr[i-1]['year']==(year)" v-for="i in length" >
+                            <td  v-for="j in real">{{(arr[i-1])[j]}}</td>  
+                            
+                            
+                        </tr>
+                    </table>
+                    
+                </div>
+                <br><br>
+                
+            </div>
+        </body>
+        <script>
+            const sal=new Vue({
+                el:"#Sal",
+                data:{
+                    query:'',
+                    dele:false,
+                    month:'June',year:'2019',
+                    Month:["January","February","March","April","May","June","July","August","September","October","November","December"]
+                    ,
+                    field:'Name',clicks:0,length:'',
+                    
+                    head:[
+                    'Name','Designation','Salary','Advance','Holidays','Balance',
+                    ],
+                    real:[
+                    'name','des','salary','advance','holidays','balance',
+                    ],
+                    arr: [],
+                    
+                },
+                created:function(){
+                    this.load();
+                },
+                methods:{
+                    load:function(){
+                        var app=this;
+                        axios.get('http://localhost:3989/data/info')
+                        .then(function(Response){
+                            sal.arr=Response
+                            sal.length=Response.length
+                            if(Response[0]['U_ID']==1){
+                                sal.head.push("Transfer")
+                                sal.head.push("Final Amount")
+                                sal.real.push("transfer")
+                                sal.real.push("final")
+                            }
+                            
+                            
+                            
+                            
+                        })
+                    },
+                    sort(field){
+                        
+                        this.clicks++
+                        this.field=this.real[field-1]
+                        this.arr.sort(this.compare)
+                        if(this.clicks%2==0){
+                            this.arr.reverse(this.compare)
+                        }
+                    },
+                    compare (a, b) {
+                        if(this.field=='name' || this.field=='des'){
+                            var nameA = a[this.field]
+                            var nameB = b[this.field]
+                        }else{
+                            var nameA = parseInt(a[this.field])
+                            var nameB = parseInt(b[this.field])
+                        }   
+                        if (nameA < nameB) { return -1; }
+                        if (nameA > nameB) { return 1;}
+                        return 0;
+                    }
+                    
+                    
+                }
+                
+            })
+            
+        </script>
+        
+        </html>

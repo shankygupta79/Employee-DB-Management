@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const Emp = require('../database').Emp
+const Data = require('../database').Data
 const path=require('path')
 route.get('/',(req,res)=>{
     if (req.session.x!=undefined) {
@@ -73,12 +74,47 @@ route.post('/del',(req,res)=>{
     })
 })
 route.post('/sal',(req,res)=>{
+  var bool=true;
     Emp.update({
         holidays:req.body.holidays,transfer:req.body.transfer,final:req.body.final,
         balance:req.body.balance,advance:req.body.advance
       },{where:{ID:req.body.ID}},
       ).then((user)=>{
-        return res.redirect('/salary')
+        Data.findOne({
+          where:{ID:req.body.ID,date:req.body.date}
+        }).then((entry)=>{
+          if(entry==null){
+            Data.create({
+              U_ID:req.body.U_ID,
+              ID:req.body.ID,
+              name:req.body.name,
+              des:req.body.des,
+              salary:req.body.salary,
+              month:req.body.month,
+              year:req.body.year,
+              holidays:req.body.holidays,transfer:req.body.transfer,final:req.body.final,
+              balance:req.body.balance,advance:req.body.advance,
+              date:req.body.date,
+            }
+            ).then((user)=>{
+              return res.send()
+            }).catch((err)=>{
+              console.log(err)
+              return res.redirect('/dashboard')
+            })
+          }else{
+            Data.update({
+              U_ID:req.body.U_ID,
+              salary:req.body.salary,
+              holidays:req.body.holidays,transfer:req.body.transfer,final:req.body.final,
+              balance:req.body.balance,advance:req.body.advance,
+            },{where:{ID:req.body.ID,date:req.body.date}},
+            ).then((user)=>{
+              return res.send()
+            })
+          }
+        })
+        return 
       }).catch((err)=>{
         console.log(err)
         return res.redirect('/dashboard')
@@ -107,6 +143,7 @@ route.post('/update',(req,res)=>{
         console.log(err)
         return res.redirect('/dashboard')
       })
+      
 })
 exports=module.exports=route
-
+/**/
