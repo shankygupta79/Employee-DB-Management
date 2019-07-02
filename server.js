@@ -26,6 +26,7 @@ app.use('/', require('./routes/root'));
 app.use('/add_emp',require('./routes/add_emp'))
 app.use('/show_emp',require('./routes/show_emp'))
 app.use('/salary',require('./routes/salary'))
+app.use('/data',require('./routes/data'))
 app.listen(SERVER_PORT, function () {
     console.log("Server started on http://localhost:3989/login");
 });

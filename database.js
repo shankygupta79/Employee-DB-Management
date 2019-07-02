@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+//emp','heey','mypass'
 const db = new Sequelize('eFx6DJVPM2', 'eFx6DJVPM2', 'XDIawT0voC', {
     host:'remotemysql.com',
     dialect: 'mysql',
@@ -61,6 +62,29 @@ const User = db.define('users', {
     password:Sequelize.STRING,
     
 })
+const Data = db.define('datas', {
+    U_ID:{
+        type:Sequelize.INTEGER,
+        allowNull: false,
+    },
+    ID:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    name:Sequelize.STRING,
+    des:Sequelize.STRING,
+    salary: Sequelize.STRING,
+    advance: Sequelize.STRING,
+    holidays: Sequelize.STRING,
+    balance: Sequelize.STRING,
+    transfer: Sequelize.STRING,
+    final: Sequelize.STRING,
+    month:Sequelize.STRING,
+    year:Sequelize.STRING,
+    date:{type:Sequelize.STRING,primaryKey:true},
+    
+    
+})
 
 
 db.sync()
@@ -68,5 +92,5 @@ db.sync()
     .catch((err) => console.error("Error creating database"))
 
 exports = module.exports = {
-    Emp,User
+    Emp,User,Data
 }

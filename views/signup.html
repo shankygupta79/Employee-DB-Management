@@ -10,7 +10,7 @@
   <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://employee-db-management.herokuapp.com/login/css">
+  <link rel="stylesheet" href="http://localhost:3989/login/css">
 </head>
 <body style="background-color:lightsteelblue">
   <br>
@@ -82,7 +82,7 @@
                     },
                     methods:{
                         load:function(){
-                        axios.get('https://employee-db-management.herokuapp.com/signup/info')
+                        axios.get('http://localhost:3989/signup/info')
                         .then(function(Response){
                           for(let i=0;i<Response.length;i++){
                               sign.arr.push(Response[i].toLowerCase())  
@@ -109,7 +109,7 @@
                               phone:this.phone.toUpperCase(),
                               password:this.password,
                           },function(data){
-                            window.location.href="https://employee-db-management.herokuapp.com/login";
+                            window.location.href="http://localhost:3989/login";
                           })
                         }
                       },
