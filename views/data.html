@@ -124,6 +124,13 @@
                                 sal.head.push("Final Amount")
                                 sal.real.push("transfer")
                                 sal.real.push("final")
+                                var date=new Date()
+                                sal.year=date.getFullYear()
+                                var mon=date.getMonth()
+                                if(mon==0){
+                                    mon=12
+                                }
+                                sal.month=sal.Month[mon-1]
                             }
                             
                             
